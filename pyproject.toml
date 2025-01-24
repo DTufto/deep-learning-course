@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "deep-learning-course"
+version = "0.1.0"
+description = ""
+authors = ["DTufto <darrelltufto@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pandas = "^2.2.3"
+torch = "^2.5.1"
+torchvision = "^0.20.1"
+kagglehub = "^0.3.6"
+opencv-python = "^4.11.0.86"
+mmcv-full = "^1.7.2"
+mmcls = "^0.25.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
