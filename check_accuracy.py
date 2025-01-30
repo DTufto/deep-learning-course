@@ -1,11 +1,6 @@
 import json
 import statistics
 
-checks = []
-scores = []
-total = 0
-true = 0
-
 with open("bdd100k_labels_images_val.json", "r") as f:
     ground_truth = json.load(f)
 
@@ -16,6 +11,12 @@ pred_class = preds["pred_class"]
 pred_score = preds["pred_score"]
 true_weather = [instance["attributes"]["weather"] for instance in ground_truth]
 
+checks = []
+scores = []
+total = 0
+true = 0
+
+# Append all pairs to each other
 for i in range(len(true_weather)):
     checks.append((true_weather[i], pred_class[i]))
     scores.append((true_weather[i], pred_score[i]))
@@ -25,11 +26,12 @@ for i in range(len(true_weather)):
     else:
         total += 1
 
-
+# Calculate total accuracy
 print("Total: ", total)
 print("True: ", true)
 print("Accuracy: ", true/total)
 
+# Create a dictionary for all classes to store their values
 weather_classes = set([true for true, pred, in checks])
 metrics = {cls: {"True": 0, "False": 0, "Scores": []} for cls in weather_classes}
 
@@ -45,7 +47,7 @@ for weather, score in scores:
         if weather == cls:
             metrics[cls]["Scores"].append(score)
 
-
+# Calculate Accuracy and score average of every class
 for cls, counts, in metrics.items():
     print("{}: {}".format(cls, counts))
     counts["Accuracy"] = (counts["True"]/(counts["True"] + counts["False"]))
